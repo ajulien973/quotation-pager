@@ -2,6 +2,7 @@ import React from 'react';
 import Devis from './devis';
 import { getDevis } from '../../../repository/devis/devis.client';
 
+const MAGICAL_TOKEN = 'JKusHl8Ba8MABIjdCtLZOe2lxxnUfX';
 
 class DevisContainer extends React.Component {
   constructor() {
@@ -13,7 +14,7 @@ class DevisContainer extends React.Component {
   }
 
   componentDidMount() {
-    getDevis()
+    getDevis(MAGICAL_TOKEN)
       .then(data => this.setState({
         data,
         isLoaded: true,

@@ -1,7 +1,7 @@
-const DEVIS_URL = 'https://api.travauxlib.com/api/devis-pro/JKusHl8Ba8MABIjdCtLZOe2lxxnUfX';
+const DEVIS_URL = 'https://api.travauxlib.com/api/devis-pro';
 
-function getDevis () {
-  return fetch(DEVIS_URL);
+function getDevis (token) {
+  return fetch(`${DEVIS_URL}/${token}`);
 }
 
 export { getDevis };

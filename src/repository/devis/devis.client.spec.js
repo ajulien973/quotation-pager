@@ -14,10 +14,10 @@ describe('repository | devis | DevisClient', () => {
     });
 
     it('should get devis and return it', async () => {
-      const
-      const result = await getDevis();
+      const token = 'myDevisToken';
+      const result = await getDevis(token);
 
-      expect(global.fetch).toHaveBeenCalledWith('https://api.travauxlib.com/api/devis-pro/JKusHl8Ba8MABIjdCtLZOe2lxxnUfX')
+      expect(global.fetch).toHaveBeenCalledWith('https://api.travauxlib.com/api/devis-pro/myDevisToken')
       expect(result).toStrictEqual({
         title: 'myDevis',
         introductionLetter: 'myLetter'
