@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Row, Divider } from 'antd';
+import { Layout, Row, Divider, Button } from 'antd';
 
 import CompanyInformation from './companyInformation/companyInformation';
 import CustomerInformation from './customerInformation/customerInformation';
@@ -10,7 +10,7 @@ import ProductSectionList from './productSectionList/productSectionList';
 
 const { Content } = Layout;
 
-const Devis = ({data = {}}) => {
+const Devis = ({data = {}, shouldBuildByLocations = false, toggleShouldBuildByLocations = () => {}}) => {
   const headerProps = {
     title: data.title,
     introductionLetter: data.introductionLetter,
@@ -37,6 +37,7 @@ const Devis = ({data = {}}) => {
   };
   const productSectionListProps = {
     lots: data.lots,
+    shouldBuildByLocations: shouldBuildByLocations
   };
 
   return (
@@ -49,6 +50,7 @@ const Devis = ({data = {}}) => {
       <Header {...headerProps} />
       <br/>
       <br/>
+      <Button onClick={toggleShouldBuildByLocations}/>
       <ProductSectionList {...productSectionListProps} />
       <br/>
       <Totals {...totalsProps} />
