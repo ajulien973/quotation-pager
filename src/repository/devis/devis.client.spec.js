@@ -4,8 +4,10 @@ describe('repository | devis | DevisClient', () => {
   describe('getDevis', () => {
     beforeEach(() => {
       jest.spyOn(global, 'fetch').mockResolvedValue({
-        title: 'myDevis',
-        introductionLetter: 'myLetter'
+        json: () => ({
+          title: 'myDevis',
+          introductionLetter: 'myLetter'
+        })
       });
     });
 
