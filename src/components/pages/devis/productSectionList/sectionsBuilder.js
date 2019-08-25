@@ -8,6 +8,7 @@ import {
   propOr,
   defaultTo,
   isEmpty,
+  ifElse,
 } from 'ramda';
 
 const flattenEntries = compose(flatten, pluck('lignes'));
@@ -35,16 +36,17 @@ export const buildSectionsFromLots = lots => {
     if (isEmpty(locationsFromEntry)) {
       locationsFromEntry.push({ uuid: '' });
     }
+
     locationsFromEntry.forEach((location) => {
       const section = findSectionByUuid(location.uuid)(sections);
-      if (isEmpty(section)) {
-        sections.push({
+      ifElse(
+        isEmpty,
+        () => sections.push({
           uuid: location.uuid || '',
           lignes: [ligne],
-        })
-      } else {
-        section.lignes.push(ligne);
-      }
+        }),
+        () => section.lignes.push(ligne)
+      )(section);
     })
   });
   return sections;
