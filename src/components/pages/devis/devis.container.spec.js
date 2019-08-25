@@ -20,6 +20,7 @@ describe('components | pages | DevisContainer', () => {
     expect(wrapper.state()).toStrictEqual({
       data: {},
       isLoaded: false,
+      shouldBuildByLocations: false,
     })
   });
 
@@ -31,16 +32,44 @@ describe('components | pages | DevisContainer', () => {
         title: 'myDevis'
       },
       isLoaded: true,
+      shouldBuildByLocations: false,
     })
   });
 
   it('should render a devis with the correct data', async () => {
-    const wrapper = await shallow(<DevisContainer/>);
+    const wrapper = await shallow(<DevisContainer />);
+    spyOn(wrapper.instance(), 'toggleShouldBuildByLocations');
+
+    wrapper.find(Devis).props().toggleShouldBuildByLocations();
+
     expect(wrapper.find(Devis)).toHaveLength(1);
-    expect(wrapper.find(Devis).props()).toStrictEqual({
-      data: {
-        title: 'myDevis',
-      },
+    expect(wrapper.find(Devis).props().data).toStrictEqual({ title: 'myDevis' });
+    expect(wrapper.find(Devis).props().shouldBuildByLocations).toBe(false);
+    expect(wrapper.instance().toggleShouldBuildByLocations).toHaveBeenCalled();
+  });
+
+  describe('toggleShouldBuildByLocations', () => {
+    describe('when shouldBuildByLocations from state is TRUE', () => {
+      it('should set it to FALSE', async () => {
+        const wrapper = await shallow(<DevisContainer />);
+        wrapper.setState({ shouldBuildByLocations: true });
+
+        wrapper.instance().toggleShouldBuildByLocations();
+
+        expect(wrapper.state().shouldBuildByLocations).toBe(false)
+      });
     });
+
+    describe('when shouldBuildByLocations from state is FALSE', () => {
+      it('should set it to TRUE', async () => {
+        const wrapper = await shallow(<DevisContainer />);
+        wrapper.setState({ shouldBuildByLocations: false });
+
+        wrapper.instance().toggleShouldBuildByLocations();
+
+        expect(wrapper.state().shouldBuildByLocations).toBe(true)
+      });
+    });
+
   });
 });

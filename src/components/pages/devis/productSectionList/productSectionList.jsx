@@ -3,13 +3,13 @@ import ProductSection from '../productSection/productSection';
 
 const ProductSectionList = props => {
   const {
-    lots = [],
+    sections = [],
   } = props;
 
   return (
     <Fragment>
-      { lots.map((item) =>
-        <ProductSection {...item} />
+      { sections.map((section) =>
+        <ProductSection {...section} />
       )}
     </Fragment>
   );

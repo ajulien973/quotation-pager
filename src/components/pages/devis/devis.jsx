@@ -1,16 +1,16 @@
 import React from 'react';
-import { Layout, Row, Divider } from 'antd';
+import { Layout, Row, Divider, Switch } from 'antd';
 
 import CompanyInformation from './companyInformation/companyInformation';
 import CustomerInformation from './customerInformation/customerInformation';
 import Header from './header/header';
 import Totals from './totals/totals';
 import PaymentInformation from './paymentInformation/paymentInformation';
-import ProductSectionList from './productSectionList/productSectionList';
+import ProductSectionListContainer from './productSectionList/productSectionList.container';
 
 const { Content } = Layout;
 
-const Devis = ({data = {}}) => {
+const Devis = ({data = {}, shouldBuildByLocations = false, toggleShouldBuildByLocations = () => {}}) => {
   const headerProps = {
     title: data.title,
     introductionLetter: data.introductionLetter,
@@ -37,6 +37,8 @@ const Devis = ({data = {}}) => {
   };
   const productSectionListProps = {
     lots: data.lots,
+    locations: data.locations,
+    shouldBuildByLocations: shouldBuildByLocations
   };
 
   return (
@@ -49,7 +51,8 @@ const Devis = ({data = {}}) => {
       <Header {...headerProps} />
       <br/>
       <br/>
-      <ProductSectionList {...productSectionListProps} />
+      <Switch checkedChildren='Vue par lot' unCheckedChildren='Vue par pièce' defaultChecked onClick={toggleShouldBuildByLocations}/>
+      <ProductSectionListContainer {...productSectionListProps} />
       <br/>
       <Totals {...totalsProps} />
       <br/>
