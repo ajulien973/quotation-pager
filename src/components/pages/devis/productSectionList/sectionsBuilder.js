@@ -17,7 +17,10 @@ const findSectionByUuid = locationId => compose(defaultTo({}), find(propEq('uuid
 export const buildSectionsByLocations = (lots, locations) => {
   const sections = buildSectionsFromLots(lots);
   sections.forEach(section => {
-    const label = compose(propOr('Autres prestations', 'label'), find(propEq('uuid', section.uuid)))(locations);
+    const label = compose(
+      propOr('Autres prestations', 'label'),
+      find(propEq('uuid', section.uuid)),
+    )(locations);
     section.label = label;
   })
   return sections;

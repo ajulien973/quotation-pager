@@ -15,7 +15,12 @@ class DevisContainer extends React.Component {
   }
 
   toggleShouldBuildByLocations() {
-    this.state.shouldBuildByLocations = !this.state.shouldBuildByLocations;
+    const {
+      shouldBuildByLocations,
+    } = this.state;
+    this.setState({
+      shouldBuildByLocations: !shouldBuildByLocations,
+    });
   }
 
   componentDidMount() {
@@ -30,7 +35,7 @@ class DevisContainer extends React.Component {
     return <Devis
       data={this.state.data}
       shouldBuildByLocations={this.state.shouldBuildByLocations}
-      toggleShouldBuildByLocations={this.toggleShouldBuildByLocations}
+      toggleShouldBuildByLocations={() => this.toggleShouldBuildByLocations()}
     />
   }
 }
